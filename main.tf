@@ -1,6 +1,6 @@
 locals {
   tags = {
-    "Name" = "${var.vpc_name}"
+    "Name" = "${var.name}"
     "Environment" = "${var.environment}"
   }
 }

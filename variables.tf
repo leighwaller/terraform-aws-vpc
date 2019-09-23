@@ -8,7 +8,7 @@ variable "environment" {
   default = "dev"
 }
 
-variable "vpc_name" {
+variable "name" {
   description = "Short name to identify this vpc"
 }
 
