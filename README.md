@@ -2,6 +2,12 @@
 
 A terraform module that will provision the necessary infrastructure for a basic AWS VPC.
 
+#### Resources
+The following is a basic outline of the resources created by this module. Some can be disabled using variables.
+* VPC
+* Private Subnet
+* Public Subnet
+    
 
 ## Usage
 
