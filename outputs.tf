@@ -8,3 +8,23 @@ output "vpc_arn" {
   value = "${aws_vpc.main.arn}"
 }
 
+output "vpc_cidr_block" {
+  description = "The IP address range (CIDR block) that is available to the VPC"
+  value = "${aws_vpc.main.cidr_block}"
+}
+
+output "vpc_route_table_id" {
+  description = "The ID of the main route table associated with this VPC"
+  value = "${aws_vpc.main.main_route_table_id}"
+}
+
+output "vpc_instance_tenancy" {
+  description = "The EC2 instance tenancy option set on this VPC"
+  value = "${aws_vpc.main.instance_tenancy}"
+}
+
+output "vpc_dns_support" {
+  description = "Indicates whether DNS support is enabled or disabled for this VPC"
+  value = "${aws_vpc.main.enable_dns_support}"
+}
+
