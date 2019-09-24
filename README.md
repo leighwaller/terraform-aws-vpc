@@ -31,6 +31,7 @@ See the examples directory for more information.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| assign\_ip6\_cidr\_block | Indicates that an IPv6 CIDR block with a /56 prefix will be assigned to this VPC | string | `"false"` | no |
 | cidr\_block | The IP address range (CIDR block) that will be allocated to the VPC | string | `"10.0.0.0/16"` | no |
 | enable\_dns | When set to true, EC2 instances with public IP addresses will also receive a public hostname that can be resolved to IP addresses using the AWS provided DNS server | string | `"true"` | no |
 | environment | The environment this VPC is created in. Eg. dev/qa/production | string | `"dev"` | no |
@@ -47,4 +48,6 @@ See the examples directory for more information.
 | vpc\_dns\_support | Indicates whether DNS support is enabled or disabled for this VPC |
 | vpc\_id | THe ID of the VPC |
 | vpc\_instance\_tenancy | The EC2 instance tenancy option set on this VPC |
+| vpc\_ipv6\_association\_id | The association ID for the IPv6 CIDR block |
+| vpc\_ipv6\_cidr\_block | The IPv6 CIDR block that has been assigned to this VPC |
 | vpc\_route\_table\_id | The ID of the main route table associated with this VPC |

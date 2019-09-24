@@ -17,6 +17,11 @@ variable "cidr_block" {
   default = "10.0.0.0/16"
 }
 
+variable "assign_ip6_cidr_block" {
+  description = "Indicates that an IPv6 CIDR block with a /56 prefix will be assigned to this VPC"
+  default = false
+}
+
 variable "enable_dns" {
   description = "When set to true, EC2 instances with public IP addresses will also receive a public hostname that can be resolved to IP addresses using the AWS provided DNS server"
   default = true
