@@ -8,18 +8,23 @@ variable "environment" {
   default = "dev"
 }
 
-variable "name" {
+variable "vpc_name" {
   description = "Short name to identify this VPC"
 }
 
-variable "cidr_block" {
+variable "vpc_cidr_block" {
   description = "The IP address range (CIDR block) that will be allocated to the VPC"
   default = "10.0.0.0/16"
 }
 
-variable "assign_ip6_cidr_block" {
-  description = "Indicates that an IPv6 CIDR block with a /56 prefix will be assigned to this VPC"
-  default = false
+variable "private_subnet_cidr_block" {
+  description = "The IP address range (CIDR block) that will be allocated to the private subnet"
+  default = "10.0.1.0/24"
+}
+
+variable "public_subnet_cidr_block" {
+  description = "The IP address range (CIDR block) that will be allocated to the public subnet"
+  default = "10.0.2.0/24"
 }
 
 variable "enable_dns" {

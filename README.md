@@ -1,13 +1,17 @@
 # Terraform AWS VPC
 
 A terraform module that will provision the necessary infrastructure for a basic AWS VPC.
+The VPC will contain public and private subnets across multiple availability zones.
 
 #### Resources
-The following is a basic outline of the resources created by this module. Some can be disabled using variables.
+The following is a basic outline of the resources created by this module.
+Note that some can be disabled using variables.
+
 * VPC
-* Private Subnet
-* Public Subnet
-    
+* Private Subnets
+* Public Subnets
+* NAT Gateways
+* Route Tables  
 
 ## Usage
 
