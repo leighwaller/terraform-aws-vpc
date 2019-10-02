@@ -7,3 +7,5 @@ locals {
 data "aws_availability_zones" "current" {
   state = "available"
 }
+
+# see seperate .tf files for resource definitions
