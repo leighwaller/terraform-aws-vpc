@@ -24,7 +24,7 @@ Terraform version 0.12.9
 module "vpc" {
   source = "github.com/leighwaller/terraform-aws-vpc"
   
-  name = "example_vpc"
+  vpc_name = "example_vpc"
 }
 ```
 
@@ -35,13 +35,18 @@ See the examples directory for more information.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| assign\_ip6\_cidr\_block | Indicates that an IPv6 CIDR block with a /56 prefix will be assigned to this VPC | string | `"false"` | no |
-| cidr\_block | The IP address range (CIDR block) that will be allocated to the VPC | string | `"10.0.0.0/16"` | no |
-| enable\_dns | When set to true, EC2 instances with public IP addresses will also receive a public hostname that can be resolved to IP addresses using the AWS provided DNS server | string | `"true"` | no |
-| environment | The environment this VPC is created in. Eg. dev/qa/production | string | `"dev"` | no |
-| instance\_tenancy | The tenancy option for EC2 instances launched into this VPC. Valid options are default and dedicated. | string | `"default"` | no |
-| name | Short name to identify this VPC | string | n/a | yes |
 | region | The AWS region that resources will be created in | string | `"ap-southeast-2"` | no |
+| vpc\_name | Short name to identify this VPC | string | n/a | yes |
+| environment | The environment this VPC is created in. Eg. dev/qa/production | string | `"dev"` | no |
+| vpc_cidr\_block | The IP address range (CIDR block) that will be allocated to the VPC | string | `"10.0.0.0/16"` | no |
+| enable\_dns | When set to true, EC2 instances with public IP addresses will also receive a public hostname that can be resolved to IP addresses using the AWS provided DNS server | string | `"true"` | no |
+| instance\_tenancy | The tenancy option for EC2 instances launched into this VPC. Valid options are default and dedicated. | string | `"default"` | no |
+| public\_subnet\_cidr\_block | The IP address range (CIDR block) that will be allocated to the public subnet | string | `"10.0.1.0/24"` | no |
+| private\_subnet\_cidr\_block | The IP address range (CIDR block) that will be allocated to the private subnet | string | `"10.0.2.0/24"` | no |
+| public\_inbound\_acl\_rules | Inbound network ACL's associated with the public subnet | list<map<string>> | `"allow all"` | no |
+| public\_outbound\_acl\_rules | Outbound network ACL's associated with the public subnet | list<map<string>> | `"allow all"` | no |
+| private\_inbound\_acl\_rules | Inbound network ACL's associated with the private subnet | list<map<string>> | `"allow all"` | no |
+| private\_outbound\_acl\_rules | Outbound network ACL's associated with the private subnet | list<map<string>> | `"allow all"` | no |
 
 ## Outputs
 
@@ -52,6 +57,19 @@ See the examples directory for more information.
 | vpc\_dns\_support | Indicates whether DNS support is enabled or disabled for this VPC |
 | vpc\_id | THe ID of the VPC |
 | vpc\_instance\_tenancy | The EC2 instance tenancy option set on this VPC |
-| vpc\_ipv6\_association\_id | The association ID for the IPv6 CIDR block |
-| vpc\_ipv6\_cidr\_block | The IPv6 CIDR block that has been assigned to this VPC |
 | vpc\_route\_table\_id | The ID of the main route table associated with this VPC |
+| private\_subnet\_ids | List of the private subnet IDs |
+| private\_subnet\_arns | List of the private subnet ARNs |
+| private\_subnet\_cidr\_blocks | List of of private subnet CIDR blocks |
+| public\_subnet\_ids | List of the public subnet IDs |
+| public\_subnet\_arns | List of the public subnet ARNs |
+| public\_subnet\_cidr\_blocks | List of of public subnet CIDR blocks |
+| public\_route\_table\_ids | List of public route table IDs |
+| private\_route\_table\_ids | List of private route table IDs |
+| nat\_gateway\_ids | List of the NAT gateway IDs |
+| internet\_gateway\_id | The ID of the internet gateway |
+| nat\_elastic\_ip | The public IP address assigned to the NAT gateway |
+| nat\_elastic\_id | The ID address assigned to the NAT gateway |
+| public\_acl\_id | The ID of the network ACL associated with the public subnet |
+| private\_acl\_id | The ID of the network ACL associated with the private subnet |
+
