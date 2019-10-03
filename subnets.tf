@@ -1,15 +1,15 @@
 # todo public subnet should be optional
 resource "aws_subnet" "public" {
-  count = length(data.aws_availability_zones.current)
+  count = length(data.aws_availability_zones.current.names)
 
   vpc_id = aws_vpc.main.id
   cidr_block = var.public_subnet_cidr_block
 
-  availability_zone = data.aws_availability_zones.current[count.index]
+  availability_zone = data.aws_availability_zones.current.names[count.index]
 
   tags = merge(
     {
-      "Name" = format("public-subnet-%s", data.aws_availability_zones.current[count.index].id),
+      "Name" = format("public-subnet-%s", data.aws_availability_zones.current.names[count.index]),
       "Type" = "public"
     },
     local.common_tags
@@ -21,7 +21,7 @@ resource "aws_network_acl" "public" {
   count = 1
 
   vpc_id = aws_vpc.main.id
-  subnet_ids = [aws_subnet.public.*.id]
+  subnet_ids = aws_subnet.public.*.id
 
   tags = merge(
   {
@@ -64,15 +64,15 @@ resource "aws_network_acl_rule" "public_outbound" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(data.aws_availability_zones.current)
+  count = length(data.aws_availability_zones.current.names)
 
   vpc_id = aws_vpc.main.id
   cidr_block = var.private_subnet_cidr_block
-  availability_zone = data.aws_availability_zones.current[count.index]
+  availability_zone = data.aws_availability_zones.current.names[count.index]
 
   tags = merge(
     {
-      "Name" = format("private-subnet-%s", data.aws_availability_zones.current[count.index].id),
+      "Name" = format("private-subnet-%s", data.aws_availability_zones.current.names[count.index]),
       "Type" = "private"
     },
     local.common_tags
@@ -84,7 +84,7 @@ resource "aws_network_acl" "private" {
   count = 1
 
   vpc_id = aws_vpc.main.id
-  subnet_ids = [aws_subnet.private.*.id]
+  subnet_ids = aws_subnet.private.*.id
 
   tags = merge(
   {
@@ -127,26 +127,26 @@ resource "aws_network_acl_rule" "private_outbound" {
 }
 
 resource "aws_eip" "nat" {
-  count = length(data.aws_availability_zones.current)
+  count = length(data.aws_availability_zones.current.names)
 
   vpc = true
   tags = merge(
     {
-      "Name" = format("nat-ip-%s", data.aws_availability_zones.current[count.index].id),
+      "Name" = format("nat-ip-%s", data.aws_availability_zones.current.names[count.index]),
     },
     local.common_tags
   )
 }
 
 resource "aws_nat_gateway" "main" {
-  count = length(data.aws_availability_zones.current)
+  count = length(data.aws_availability_zones.current.names)
 
   allocation_id = aws_eip.nat[count.index].id
   subnet_id = aws_subnet.public[count.index].id
 
   tags = merge(
     {
-      "Name" = format("nat-gateway-%s", data.aws_availability_zones.current[count.index].id),
+      "Name" = format("nat-gateway-%s", data.aws_availability_zones.current.names[count.index]),
     },
     local.common_tags
   )
@@ -156,7 +156,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      "Name" = format("$s-internet-gateway", var.vpc_name)
+      "Name" = format("%s-internet-gateway", var.vpc_name)
     },
     local.common_tags
   )

@@ -37,6 +37,7 @@ variable "instance_tenancy" {
   default = "default"
 }
 
+# todo make these more restrictive
 variable "public_inbound_acl_rules" {
   description = "Inbound network ACL's associated with the public subnet"
   type        = list(map(string))
