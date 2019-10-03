@@ -41,8 +41,9 @@ See the examples directory for more information.
 | vpc_cidr\_block | The IP address range (CIDR block) that will be allocated to the VPC | string | `"10.0.0.0/16"` | no |
 | enable\_dns | When set to true, EC2 instances with public IP addresses will also receive a public hostname that can be resolved to IP addresses using the AWS provided DNS server | string | `"true"` | no |
 | instance\_tenancy | The tenancy option for EC2 instances launched into this VPC. Valid options are default and dedicated. | string | `"default"` | no |
-| public\_subnet\_cidr\_block | The IP address range (CIDR block) that will be allocated to the public subnet | string | `"10.0.1.0/24"` | no |
-| private\_subnet\_cidr\_block | The IP address range (CIDR block) that will be allocated to the private subnet | string | `"10.0.2.0/24"` | no |
+| availability\_zones | List of availability zone ids that subnets will be placed in | list<string> | `"ap-southeast-2a","ap-southeast-2b","ap-southeast-2c"` | no |
+| public\_subnet\_cidr\_blocks | List of IP address ranges (CIDR block) that will be allocated to the public subnets | list<string> | `"10.0.101.0/24","10.0.102.0/24","10.0.103.0/24"` | no |
+| private\_subnet\_cidr\_blocks | List of IP address ranges (CIDR block) that will be allocated to the private subnets | list<string> | `"10.0.1.0/24","10.0.2.0/24","10.0.3.0/24"` | no |
 | public\_inbound\_acl\_rules | Inbound network ACL's associated with the public subnet | list<map<string>> | `"allow all"` | no |
 | public\_outbound\_acl\_rules | Outbound network ACL's associated with the public subnet | list<map<string>> | `"allow all"` | no |
 | private\_inbound\_acl\_rules | Inbound network ACL's associated with the private subnet | list<map<string>> | `"allow all"` | no |
@@ -68,8 +69,8 @@ See the examples directory for more information.
 | private\_route\_table\_ids | List of private route table IDs |
 | nat\_gateway\_ids | List of the NAT gateway IDs |
 | internet\_gateway\_id | The ID of the internet gateway |
-| nat\_elastic\_ip | The public IP address assigned to the NAT gateway |
-| nat\_elastic\_id | The ID address assigned to the NAT gateway |
-| public\_acl\_id | The ID of the network ACL associated with the public subnet |
-| private\_acl\_id | The ID of the network ACL associated with the private subnet |
+| nat\_elastic\_ips | List of elastic IPs associated with the NAT gateway |
+| nat\_elastic\_ids | List of elastic IP IDs associated with the NAT gateway |
+| public\_acl\_ids | List of network ACL IDs associated with the public subnet|
+| private\_acl\_ids | List of network ACL IDs associated with the private subnet |
 

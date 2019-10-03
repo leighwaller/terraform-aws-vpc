@@ -1,15 +1,16 @@
 # todo public subnet should be optional
 resource "aws_subnet" "public" {
-  count = length(data.aws_availability_zones.current.names)
+  count = length(var.availability_zones)
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_cidr_block
+  cidr_block = var.public_subnet_cidr_blocks[count.index]
 
-  availability_zone = data.aws_availability_zones.current.names[count.index]
+  availability_zone = var.availability_zones[count.index]
 
   tags = merge(
     {
-      "Name" = format("public-subnet-%s", data.aws_availability_zones.current.names[count.index]),
+      # todo just put the last 2 characters of the az in the subnet name eg. public-subnet-2c
+      "Name" = format("public-subnet-%s", var.availability_zones[count.index]),
       "Type" = "public"
     },
     local.common_tags
@@ -64,15 +65,15 @@ resource "aws_network_acl_rule" "public_outbound" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(data.aws_availability_zones.current.names)
+  count = length(var.availability_zones)
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet_cidr_block
-  availability_zone = data.aws_availability_zones.current.names[count.index]
+  cidr_block        = var.private_subnet_cidr_blocks[count.index]
+  availability_zone = var.availability_zones[count.index]
 
   tags = merge(
     {
-      "Name" = format("private-subnet-%s", data.aws_availability_zones.current.names[count.index]),
+      "Name" = format("private-subnet-%s", var.availability_zones[count.index]),
       "Type" = "private"
     },
     local.common_tags
@@ -127,26 +128,26 @@ resource "aws_network_acl_rule" "private_outbound" {
 }
 
 resource "aws_eip" "nat" {
-  count = length(data.aws_availability_zones.current.names)
+  count = length(var.availability_zones)
 
   vpc = true
   tags = merge(
     {
-      "Name" = format("nat-ip-%s", data.aws_availability_zones.current.names[count.index]),
+      "Name" = format("nat-ip-%s", var.availability_zones[count.index]),
     },
     local.common_tags
   )
 }
 
 resource "aws_nat_gateway" "main" {
-  count = length(data.aws_availability_zones.current.names)
+  count = length(var.availability_zones)
 
   allocation_id = aws_eip.nat[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = merge(
     {
-      "Name" = format("nat-gateway-%s", data.aws_availability_zones.current.names[count.index]),
+      "Name" = format("nat-gateway-%s", var.availability_zones[count.index]),
     },
     local.common_tags
   )

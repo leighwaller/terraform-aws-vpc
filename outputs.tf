@@ -75,25 +75,25 @@ output "nat_gateway_ids" {
 
 output "internet_gateway_id" {
   description = "The ID of the internet gateway"
-  value       = aws_internet_gateway.main.*.id
+  value       = aws_internet_gateway.main.id
 }
 
-output "nat_elastic_ip" {
-  description = "The public IP address assigned to the NAT gateway"
-  value = aws_eip.nat.public_ip
+output "nat_elastic_ips" {
+  description = "List of elastic IPs associated with the NAT gateway"
+  value = aws_eip.nat.*.public_ip
 }
 
-output "nat_elastic_ip_id" {
-  description = "The ID address assigned to the NAT gateway"
-  value = aws_eip.nat.id
+output "nat_elastic_ip_ids" {
+  description = "List of NAT gateway elastic IP IDs"
+  value = aws_eip.nat.*.id
 }
 
-output "public_acl_id" {
-  description = "The ID of the network ACL associated with the public subnet"
-  value = aws_network_acl.public.id
+output "public_acl_ids" {
+  description = "List of network ACL IDs associated with the public subnet"
+  value = aws_network_acl.public.*.id
 }
 
-output "private_acl_id" {
-  description = "The ID of the network ACL associated with the private subnet"
-  value = aws_network_acl.private.id
+output "private_acl_ids" {
+  description = "List of network ACL IDs associated with the private subnet"
+  value = aws_network_acl.private.*.id
 }
